@@ -1,6 +1,4 @@
-Tetris Written in C++ for a BBC MicroBit
-
-Use Buttons A and B to move the pieve side to side, once a full row is filled that row is deleted and all pieces move down. Once you die you are required to tild the device to restart and play again.
+Morse Code to communicate between 2 MicroBits
 
 How to install on your MicroBit 
 1. Git clone this repo 
