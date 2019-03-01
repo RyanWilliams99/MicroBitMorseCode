@@ -1,4 +1,4 @@
-# Install script for directory: /home/ryan/Documents/MicroBit/Challenge1-MicroBitTetris/build/bbc-microbit-classic-gcc/ym/ble-nrf51822/source
+# Install script for directory: /home/ryan/Desktop/test/build/bbc-microbit-classic-gcc/ym/ble-nrf51822/source
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

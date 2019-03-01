@@ -1,5 +1,9 @@
-//Morse Code Microbits
-//yt build && cp /home/seed/IoT/Challenges/Challenge2/build/bbc-microbit-classic-gcc/source/challenge2-combined.hex /media/seed/MICROBIT
+/**
+ * File: main.cpp
+ * Author: Ryan Williams
+ * Date: 01-03-2019
+ * Desc: Morse code sender and reciever written in c++ on a MicroBit
+ */
 
 #include <string.h>
 #include "MicroBit.h"
@@ -8,15 +12,11 @@ MicroBit uBit;
 
 // current time since power on in milliseconds	
 uint64_t system_timer_current_time();
-
-// Setting button
 MicroBitButton buttonA(MICROBIT_PIN_BUTTON_A, MICROBIT_ID_BUTTON_A);
-
-// Setting Pin
 MicroBitPin P0(MICROBIT_ID_IO_P0, MICROBIT_PIN_P0, PIN_CAPABILITY_ALL);
 
 
-typedef struct
+typedef struct //Used to convert Morse to ASCII
 {
     char* const morse;
     char* const ascii;
@@ -66,13 +66,13 @@ int main() {
 
     };
 
-    // For reading button
+    //For reading button presses
 	bool pressed = false;
 	bool pinRead = false;
 
 	while(1){
 
-		/* =================================================== */
+        ///////////////////////////////WRITING//////////////////////////////////
 
 		// Start counting Button
 		uint64_t reading = system_timer_current_time();
@@ -102,14 +102,7 @@ int main() {
   				uBit.sleep(80);
   				uBit.io.P0.setDigitalValue(0);
   			}
-  			// is it finished
-  			else if (delta > 1000 && delta < 3000){
-  				uBit.display.print("S");
-  				uBit.io.P0.setDigitalValue(1);
-  				uBit.sleep(130);
-  				uBit.io.P0.setDigitalValue(0);
-  			}
-  			// Is it an error
+  			// Is it an END OF MESSAGE
   			else {
   				uBit.display.print("E");
                 uBit.io.P0.setDigitalValue(1);
@@ -122,7 +115,7 @@ int main() {
   			uBit.display.clear();
   		}
 
-  		/* ======================================================= */
+  		///////////////////////////////READING//////////////////////////////////
 
   		// Read the pin
   		uint64_t pinIn = uBit.io.P0.getDigitalValue();
@@ -132,41 +125,28 @@ int main() {
 
   			// Start counting Pin
   			uint64_t inReading = system_timer_current_time();
+  			bool validMessage = false;
 
-  			// While pin is on
-  			while (pinIn == 1){
+
+  			while (pinIn == 1){ //While pin is on
   				pinIn = uBit.io.P0.getDigitalValue();
   				pinRead = true;
   			}
 
   			// Count how long the pin was on for
-  			uint64_t pinBlah = system_timer_current_time() - inReading;
+  			uint64_t pinOnTime = system_timer_current_time() - inReading;
 
-  			// If the pin was turned on
-  			if (pinRead){
-  				// Was it a dot
-  				if (pinBlah < 51){
-  					//uBit.display.print(".");
+
+  			if (pinRead){ //If pin on enter "Reading Mode"
+
+  				if (pinOnTime < 51){ // Was it a dot
   					strcat(input,".");
-  					uBit.sleep(50);
   				}
-  				// Was it a dash
-  				else if (pinBlah > 51 && pinBlah < 101){
-  					//uBit.display.print("-");
+  				else if (pinOnTime > 51 && pinOnTime < 101){ //Was it a dash
                     strcat(input,"-");
-  					uBit.sleep(50);
   				}
-  				// Was it Space
-  				else if (pinBlah > 101 && pinBlah < 151){
-                    //uBit.display.print("S");
-                    strcat(input," ");
-                    uBit.sleep(50);
-  				}
-  				// Was it an end
-  				else {
-                    uBit.display.print("E");
-                    uBit.sleep(500);
-
+  				else { //Was it end of message
+  				    
                     pinRead = false;
                     uBit.display.clear();
                     char* segment;
@@ -175,21 +155,26 @@ int main() {
 
                     while(segment)
                     {
-                        for(i=0; i < 36; ++i)
+                        for(i=0; i < 36; ++i) //For every member in struct
                         {
-                            if (!strcmp(segment, table[i].morse))
+                            if (!strcmp(segment, table[i].morse)) //If found display char
                             {
+                                validMessage = true;
+                                uBit.sleep(1000);
                                 uBit.display.scroll(table[i].ascii);
                             }
                         }
                         segment = strtok(nullptr, " ");
                     }
-                    memset(input, 0, sizeof input);
-                    uBit.sleep(1000);
+                    if (!validMessage) //If message invalid alight top right pixel
+                    {
+                        uBit.display.image.setPixelValue(4,0,255);
+                        uBit.sleep(2000);
+                    }
+                    memset(input, 0, sizeof input); //Clear input string for next char
   				}
                 uBit.display.clear();
   			}
   		}
 	}
-	release_fiber();
 }

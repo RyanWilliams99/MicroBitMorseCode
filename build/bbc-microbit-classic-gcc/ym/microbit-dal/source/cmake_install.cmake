@@ -1,4 +1,4 @@
-# Install script for directory: /home/ryan/Documents/MicroBit/Challenge1-MicroBitTetris/yotta_modules/microbit-dal/source
+# Install script for directory: /home/ryan/Desktop/test/yotta_modules/microbit-dal/source
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

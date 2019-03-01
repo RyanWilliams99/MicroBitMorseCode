@@ -2,14 +2,14 @@
 
 cmake_minimum_required(VERSION 2.8.11)
 
-include_directories("/home/ryan/Documents/MicroBit/Challenge1-MicroBitTetris/yotta_modules/microbit/source")
+include_directories("/home/ryan/Desktop/test/yotta_modules/microbit/source")
 
 
 set(YOTTA_AUTO_MICROBIT_CPP_FILES
-    "/home/ryan/Documents/MicroBit/Challenge1-MicroBitTetris/yotta_modules/microbit/source/MicroBit.cpp"
+    "/home/ryan/Desktop/test/yotta_modules/microbit/source/MicroBit.cpp"
 )
 # force dependency on the config header for cpp files, which CMake otherwise wouldn't track:
-set_property(SOURCE ${YOTTA_AUTO_MICROBIT_CPP_FILES} PROPERTY OBJECT_DEPENDS "/home/ryan/Documents/MicroBit/Challenge1-MicroBitTetris/build/bbc-microbit-classic-gcc/yotta_config.h")
+set_property(SOURCE ${YOTTA_AUTO_MICROBIT_CPP_FILES} PROPERTY OBJECT_DEPENDS "/home/ryan/Desktop/test/build/bbc-microbit-classic-gcc/yotta_config.h")
 
 
 add_library(microbit

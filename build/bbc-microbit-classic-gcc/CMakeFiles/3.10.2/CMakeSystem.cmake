@@ -3,7 +3,7 @@ set(CMAKE_HOST_SYSTEM_NAME "Linux")
 set(CMAKE_HOST_SYSTEM_VERSION "4.15.0-45-generic")
 set(CMAKE_HOST_SYSTEM_PROCESSOR "x86_64")
 
-include("/home/ryan/Documents/MicroBit/Challenge1-MicroBitTetris/build/bbc-microbit-classic-gcc/toolchain.cmake")
+include("/home/ryan/Desktop/test/build/bbc-microbit-classic-gcc/toolchain.cmake")
 
 set(CMAKE_SYSTEM "mbedOS-1")
 set(CMAKE_SYSTEM_NAME "mbedOS")

@@ -1,4 +1,4 @@
-# Install script for directory: /home/ryan/Documents/MicroBit/Challenge1-MicroBitTetris/yotta_modules/mbed-classic
+# Install script for directory: /home/ryan/Desktop/test/yotta_modules/mbed-classic
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
